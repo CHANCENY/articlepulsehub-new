@@ -3,6 +3,8 @@
 /!public/theme/articlepulsehub/vendor/
 schema/manifest.yml
 public/sites/var
+public/sites/private
+public/sites/public
 public/core
 public/ads.txt
 public/sites/configs/database/database.log
