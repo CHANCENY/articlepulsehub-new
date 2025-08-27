@@ -1,9 +1,5 @@
 RewriteEngine On
 RewriteBase /
 
-# Serve existing files and directories normally
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Internally rewrite everything else to /public
-RewriteRule ^(.*)$ /public/$1 [L]
+# Redirect all requests to the /web directory
+RewriteRule ^(.*)$ /web/$1 [L]
