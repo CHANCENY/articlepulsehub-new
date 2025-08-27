@@ -1,0 +1,29 @@
+name: 'Banner Ads'
+description: ''
+machine_name: content_banner_ads
+created: '2025-08-27 08:55 AM'
+fields:
+    content_banner_ads_field_ad_content:
+        label: 'Ad Content'
+        name: content_banner_ads_field_ad_content
+        id: ''
+        class:
+            - ''
+            - editor
+            - editor
+        default_value: '<section class="call-to-action">     <div class="container">         <div class="row">             <div class="col-lg-12">                 <div class="main-content">                     <div class="row">                         <p>Edit here</p>                     </div>                 </div>             </div>         </div>     </div> </section>'
+        required: false
+        handler: Simp\Core\components\basic_fields\TextAreaField
+        limit: 1
+        options:
+            rows: ''
+            cols: ''
+        type: textarea
+display_setting:
+    content_banner_ads_field_ad_content:
+        display_label: '1'
+        display_as: p
+        display_enabled: '1'
+permission: {  }
+storage:
+    - node__content_banner_ads_field_ad_content

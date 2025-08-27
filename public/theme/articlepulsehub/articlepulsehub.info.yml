@@ -1,0 +1,6 @@
+name: 'Articlepulsehub Theme'
+version: 1
+default: true
+home_template: 'articlepulsehub.view.home.section.html'
+type: module
+core_version_requirement: ^1

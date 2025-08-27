@@ -1,0 +1,134 @@
+<style>
+
+    .log-error {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        overflow: hidden;
+
+        .header {
+            background: #ef4444;
+            color: white;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .message {
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #b91c1c;
+            word-break: break-word;
+        }
+        .details {
+            padding: 20px;
+            font-family: monospace;
+            font-size: 0.9em;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .trace {
+            padding: 20px;
+        }
+        .trace h2 {
+            margin-top: 0;
+        }
+        .trace ol {
+            padding-left: 20px;
+            margin: 0;
+            font-family: monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        .trace li {
+            margin-bottom: 5px;
+        }
+    }
+
+</style>
+
+<div class="log-error">
+    <div class="header">
+        <h1>0 | Error</h1>
+    </div>
+    <div class="message">
+        Simp\Core\modules\files\entity\File::load(): Argument #1 ($fid) must be of type int, null given, called in /app/vendor/simp/core/src/modules/structures/content_types/form/ContentTypeDefinitionEditForm.php on line 124
+    </div>
+    <div class="details">
+                    <div>File: /app/vendor/simp/core/src/modules/files/entity/File.php:146</div>
+                <div>Type: TypeError</div>
+    </div>
+    <div class="trace">
+        <h2>Stack Trace</h2>
+        <ol>
+                            <li>
+                                            /app/vendor/simp/core/src/modules/structures/content_types/form/ContentTypeDefinitionEditForm.php:124 -
+                                                                Simp\Core\modules\files\entity\File::
+                                        load()
+                </li>
+                            <li>
+                                                                Simp\Core\modules\structures\content_types\form\ContentTypeDefinitionEditForm-&gt;
+                                        {closure:Simp\Core\modules\structures\content_types\form\ContentTypeDefinitionEditForm::buildForm():123}()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/modules/structures/content_types/form/ContentTypeDefinitionEditForm.php:123 -
+                                                            array_map()
+                </li>
+                            <li>
+                                            /app/vendor/simp/forms/src/FormBuilder/FormBuilder.php:23 -
+                                                                Simp\Core\modules\structures\content_types\form\ContentTypeDefinitionEditForm-&gt;
+                                        buildForm()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/lib/controllers/SystemController.php:893 -
+                                                                Simp\FormBuilder\FormBuilder-&gt;
+                                        __construct()
+                </li>
+                            <li>
+                                            /app/vendor/simp/router/src/Router/RouterRegister.php:72 -
+                                                                Simp\Core\lib\controllers\SystemController-&gt;
+                                        content_node_add_edit_controller()
+                </li>
+                            <li>
+                                            /app/vendor/simp/router/src/Router/RouterRegister.php:83 -
+                                                                Simp\Router\Router\RouterRegister-&gt;
+                                        handlerController()
+                </li>
+                            <li>
+                                            /app/vendor/simp/router/src/Route.php:34 -
+                                                                Simp\Router\Router\RouterRegister-&gt;
+                                        get()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/lib/app/App.php:208 -
+                                                                Simp\Router\Route-&gt;
+                                        get()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/lib/app/App.php:80 -
+                                                                Simp\Core\lib\app\App-&gt;
+                                        mapRouteListeners()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/lib/app/App.php:155 -
+                                                                Simp\Core\lib\app\App-&gt;
+                                        __construct()
+                </li>
+                            <li>
+                                            /app/vendor/simp/core/src/lib/installation/InstallerValidator.php:154 -
+                                                                Simp\Core\lib\app\App::
+                                        runApp()
+                </li>
+                            <li>
+                                            /app/public/index.php:11 -
+                                                                Simp\Core\lib\installation\InstallerValidator-&gt;
+                                        bootApplication()
+                </li>
+                    </ol>
+    </div>
+</div>
+<!-- Current Theme:  --><!-- override suggestion: .view.system.error -->

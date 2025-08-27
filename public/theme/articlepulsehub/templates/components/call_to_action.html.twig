@@ -1,0 +1,27 @@
+{% set action_entity = get_call_to_action() %}
+
+{% if action_entity.count %}
+
+{% set action = action_entity.first.get('content_banner_ads_field_ad_content').0 %}
+
+    {% if action starts with '<section class="call-to-action">' %}
+        {{ action|raw }}
+    {% else %}
+
+        <section class="call-to-action">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-content">
+                            <div class="row">
+                                {{ action|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {% endif%}
+{% endif %}
+

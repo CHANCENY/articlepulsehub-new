@@ -1,0 +1,148 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "contact us",
+        h1: "let’s stay in touch!"
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+{% block head %}
+
+    <!-- Meta Description -->
+    <meta name="description" content="Get in touch with {{ site.get('site_name', 'Articlepulsehub') }} . Contact us via phone, email, or our contact form. Visit our office or view our location on the map.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }}{{ url('services.contact.us') }}">
+
+    <!-- Open Graph (for Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="Reach out to {{ site.get('site_name', 'Articlepulsehub') }}. We’d love to hear from you.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.contact.us') }}">
+    <meta property="og:image" content="{{ request.http.getSchemeAndHttpHost }}/android-chrome-512x512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="Get in touch with {{ site.get('site_name', 'Articlepulsehub') }}  through phone, email, or our online form.">
+    <meta name="twitter:image" content="{{ request.http.getSchemeAndHttpHost }}/android-chrome-512x512.png">
+
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "{{ site.get('site_name', 'Articlepulsehub') }}",
+            "url": "{{  request.http.getSchemeAndHttpHost }}",
+            "logo": "{{ request.http.getSchemeAndHttpHost }}/android-chrome-512x512.png",
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "telephone": "{{ site.get('site_phone')|phone }}",
+                "contactType": "customer service",
+                "areaServed": "{{ site.get('site_country') }}",
+                "availableLanguage": ["en"]
+            }],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{ site.get('site_address') }}",
+                "addressLocality": "{{ site.get('site_locality') }}",
+                "postalCode": "{{ site.get('site_postal_code') }}",
+                "addressCountry": "{{ site.get('site_country') }}"
+            }
+        }
+    </script>
+
+
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="contact-us">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="down-contact">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="sidebar-item contact-form">
+                                    <div class="sidebar-heading">
+                                        <h2>Send us a message</h2>
+                                    </div>
+                                    <div class="content">
+                                        <form id="contact" action="" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="your_full_name" type="text" id="name" placeholder="Your name" required="">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="form_field_email_2" type="text" id="email" placeholder="Your email" required="">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="request_subject" type="text" id="subject" placeholder="Subject">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <textarea name="request_message" rows="6" id="message" placeholder="Your Message" required=""></textarea>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <aside class="col-lg-4">
+                                <div class="sidebar-item contact-information">
+                                    <div class="sidebar-heading">
+                                        <h2>contact information</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+                                            <li>
+                                                <h5>{{ site.get('site_phone')|phone }}</h5>
+                                                <span>PHONE NUMBER</span>
+                                            </li>
+                                            <li>
+                                                <h5>{{ site.get('site_email') }}</h5>
+                                                <span>EMAIL ADDRESS</span>
+                                            </li>
+                                            <li>
+                                                <h5>{{ site.get('site_address') }}
+                                                    <br>{{ site.get('site_locality') ~' '~ site.get('site_country') }}</h5>
+                                                <span>STREET ADDRESS</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="col-lg-12">
+                    <div id="map">
+                        <iframe src="https://maps.google.com/maps?q={{ site.get('site_address') ~' '~ site.get('site_locality') ~' '~ site.get('site_country') }}&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

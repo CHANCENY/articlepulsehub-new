@@ -1,0 +1,42 @@
+{% set featured = feature_articles() %}
+
+{% if featured.first %}
+
+    <!-- Banner Starts Here -->
+    <div class="main-banner header-text">
+        <div class="container-fluid">
+
+            <div class="owl-banner owl-carousel">
+
+                {% set entities = featured.getIterator %}
+
+                {% for entity in entities %}
+
+                    <div class="item">
+                        <img src="{{ file_uri(entity.get('content_articles_field_cover_image').0) }}" alt="{{ entity.title }}">
+                        <div class="item-content">
+                            <div class="main-content">
+                                {% if entity.get('content_articles_field_category') %}
+                                <div class="meta-category">
+                                    <span>{{ term(entity.get('content_articles_field_category').0).label }}</span>
+                                </div>
+                                {% endif %}
+
+                                <a href="{{ url('system.structure.content.node',{nid: entity.nid}) }}"><h4>{{ entity.title|u.truncate("Unveiling the Journey of a Global Icon"|length) }}</h4></a>
+
+                                <ul class="post-info">
+                                    <li><a href="{{ url('system.account.view', {uid: entity.getOwner.uid}) }}">{{ entity.getOwner.name }}</a></li>
+                                    <li><a href="#">{{ entity.getUpdated|date('F d, Y') }}</a></li>
+                                    <li><a href="{{ url('system.structure.content.node',{nid: entity.nid}) }}#comments">12 Comments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Banner Ends Here -->
+
+{% endif %}

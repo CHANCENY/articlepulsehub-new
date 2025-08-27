@@ -1,0 +1,64 @@
+title: 'Comments Form'
+name: comments_form
+attributes:
+    id: comments_form
+    class: form-builder-form
+    method: POST
+    action: ''
+    enctype: multipart/form-data
+    accept-charset: UTF-8
+    is_silent: false
+fields:
+    your_name:
+        label: 'Your Name'
+        type: text
+        name: your_name
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    your_email:
+        label: 'Your Email'
+        type: email
+        name: your_email
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    subject:
+        label: Subject
+        type: text
+        name: subject
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    your_comment:
+        label: 'Your Comment'
+        type: textarea
+        name: your_comment
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\TextAreaField
+        limit: 1
+        options:
+            rows: '10'
+            cols: '9'
+    submit:
+        label: ''
+        type: submit
+        name: submit
+        id: submit
+        class: {  }
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+        default_value: 'Post Comment'

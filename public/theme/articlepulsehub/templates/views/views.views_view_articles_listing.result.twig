@@ -1,0 +1,201 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "Our Recent Article",
+        h1: article.title
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+{% block call_action %}
+
+    {{ include('articlepulsehub.view.call_to_action.html', {}, with_context: true) }}
+
+{% endblock %}
+
+{% block head %}
+
+{% if is_found %}
+
+    {% set tags = blog_terms(article.get('content_articles_field_tags'), 20) %}
+    <meta name="keywords" content="{{ tags|column('label')|join(', ') }}">
+    <meta name="description" content="{{ article.get('content_articles_field_body').0|striptags|u.truncate(148, '...', false) }}">
+
+
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:description" content="{{ article.get('content_articles_field_body').0|striptags|u.truncate(148, '...', false) }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node',{nid: article.nid}) }}" />
+    <meta property="og:image" content="{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ article.title }}" />
+    <meta name="twitter:description" content="{{ article.get('content_articles_field_body').0|striptags|u.truncate(148, '...', false) }}" />
+    <meta name="twitter:image" content="{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}" />
+
+    <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node',{nid: article.nid}) }}" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{ article.title }}",
+            "image": "{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{ article.getOwner.name|capitalize }}"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{ site.get('site_name') }}",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png"
+                }
+            },
+            "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
+            "dateModified": "{{ article.getUpdated|date('Y-m-d') }}",
+            "mainEntityOfPage": "{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node',{nid: article.nid}) }}"
+        }
+    </script>
+
+
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="all-blog-posts">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <article class="blog-post">
+                                    <div class="blog-thumb">
+                                        <img src="{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}" alt="">
+                                    </div>
+                                    <div class="down-content">
+                                        <span>{{ term(article.get('content_articles_field_category').0).label }}</span>
+                                        <ul class="post-info">
+                                            <li><a href="{{ url('services.account.view', {uid: article.getOwner.uid}) }}">{{ article.getOwner.getProfile.getFirstName }}</a></li>
+                                            <li><a href="#">{{ article.getUpdated|date('F d, Y') }}</a></li>
+                                            <li><a href="#comments">{{ article.get('content_articles_field_comments')|count }} Comments</a></li>
+                                        </ul>
+                                        <div>{{ article.get('content_articles_field_body').0|strip_empty_tags|raw }}</div>
+                                        <div class="post-options">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <ul class="post-tags">
+                                                        <li><i class="fa fa-tags"></i></li>
+                                                        {% set tags = blog_terms(article.get('content_articles_field_tags')) %}
+
+                                                        {% for tag in tags %}
+                                                            <li><a href="{{ url('services.articles.tag', {name: tag.name}) }}">{{ tag.label }}</a>,</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                <div class="col-6">
+                                                    <ul class="post-share">
+                                                        <li><i class="fa fa-share-alt"></i></li>
+                                                        <li>
+                                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node',{nid: article.nid})}}"
+                                                               target="_blank"
+                                                               rel="noopener noreferrer">
+                                                                Facebook</a>,
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://twitter.com/intent/tweet?url={{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node',{nid: article.nid})}}&text={{ article.title }}"
+                                                               target="_blank"
+                                                               rel="noopener noreferrer">
+                                                                Twitter</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            {% set comments = get_comments(article.get('content_articles_field_comments')) %}
+
+                            <div class="col-lg-12">
+                                <div class="sidebar-item comments">
+                                    <div class="sidebar-heading">
+                                        <h2>{{ article.get('content_articles_field_comments')|count }} comments</h2>
+                                    </div>
+                                    <div class="content" id="comments">
+                                        <ul>
+                                            {% for comment in comments %}
+                                            <li>
+                                                <div class="author-thumb">
+                                                    <img rel="nofollow" src="/theme/articlepulsehub/assets/images/no-profile.avif" alt="">
+                                                </div>
+                                                <div class="right-content">
+                                                    <h4>{{ comment.get('subject').0.value }}<span>{{ comment.getUpdatedAt|date('F d, Y') }}</span></h4>
+                                                    <p>{{ comment.get('your_comment').0.value }}</p>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="sidebar-item submit-comment">
+                                    <div class="sidebar-heading">
+                                        <h2>Your comment</h2>
+                                    </div>
+                                    <div class="content" data-submission="true">
+                                        <form id="comment" action="/admin/form-builder/comments_form/submission/node/{{ article.nid }}/field/content_articles_field_comments" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="your_name" type="text" id="name" placeholder="Your name" required="">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="your_email" type="text" id="email" placeholder="Your email" required="">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <input name="subject" type="text" id="subject" placeholder="Subject">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <textarea name="your_comment" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <button type="submit" name="submit" id="form-submit" class="main-button">Submit</button>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    {{ include('articlepulsehub.view.sidebar.html', {}, with_context: true) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

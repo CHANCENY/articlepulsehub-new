@@ -1,0 +1,157 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "Term & Condition Policy",
+        h1: "More on term, condition and privacy policies"
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+
+{% block head %}
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ page_title }}">
+    <meta name="description" content="Read {{ site.get('site_name') }}'s Privacy Policy and Terms & Conditions to understand how we protect your personal data and govern site usage.">
+    <meta name="keywords" content="Privacy Policy, Terms and Conditions, ArticlePulseHub, Data Protection, User Information">
+    <meta name="author" content="{{ site.get('site_name') }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.policy') }}">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="Read {{ site.get('site_name') }}'s Privacy Policy and Terms & Conditions to understand how we protect your personal data and govern site usage.">
+    <meta property="og:image" content="https://articlepulsehub.lndo.site/android-chrome-512x512.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.policy') }}">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="Read {{ site.get('site_name') }}'s Privacy Policy and Terms & Conditions to understand how we protect your personal data and govern site usage.">
+    <meta name="twitter:image" content="https://articlepulsehub.lndo.site/android-chrome-512x512.png">
+
+    <!-- Robots / Crawlers -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }}{{ url('services.policy') }}">
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "{{ page_title }}",
+          "url": "{{ request.http.getSchemeAndHttpHost }}{{ url('services.policy') }}",
+  "description": "Read {{ site.get('site_name') }}'s Privacy Policy and Terms & Conditions to understand how we protect your personal data and govern site usage.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.get('site_name') }}",
+    "url": "{{ request.http.getSchemeAndHttpHost }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png"
+    },
+    "sameAs": [
+      "https://www.facebook.com/freeman.nyasulu.5",
+      "https://www.instagram.com/chancenyasulu?igsh=cmN1Znl1bjk5eTQz"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "{{ site.get('site_phone')|phone }}",
+        "contactType": "customer service",
+        "areaServed": "{{ site.get('site_country') }}",
+        "availableLanguage": ["en"]
+      }
+    ]
+  }
+}
+    </script>
+
+
+{% endblock %}
+
+{% block body %}
+
+
+    <section class="about-us">
+        <div class="container">
+
+            <div class="row">
+                <div class="terms-and-conditions">
+                    <div class="container">
+                        <h2>Terms and Conditions</h2>
+                        <p>Welcome to {{ site.get('site_name') }}. By accessing or using our website, you agree to comply with and be bound by these Terms and Conditions. Please read them carefully before using our services. If you do not agree with any part of these terms, you must not use {{ site.get('site_name') }}.</p>
+
+                        <h4>1. Use of Site</h4>
+                        <p>You agree to use {{ site.get('site_name') }} for lawful purposes only. You must not engage in any activity that may harm, disrupt, or interfere with the functioning of our website or services.</p>
+
+                        <h4>2. Intellectual Property</h4>
+                        <p>All content, including text, images, graphics, logos, and other materials on {{ site.get('site_name') }}, is the property of {{ site.get('site_name') }} or its content suppliers and is protected by intellectual property laws. You may not reproduce, distribute, or use any content without our explicit permission.</p>
+
+                        <h4>3. User Content</h4>
+                        <p>When you post content on {{ site.get('site_name') }}, you grant us a non-exclusive, worldwide, royalty-free license to use, reproduce, and display such content. You are responsible for ensuring that your content does not violate any third-party rights or applicable laws.</p>
+
+                        <h4>4. Privacy</h4>
+                        <p>We respect your privacy. Our Privacy Policy explains how we collect, use, and protect your information when you visit {{ site.get('site_name') }}. By using our site, you consent to our data practices described in the Privacy Policy.</p>
+
+                        <h4>5. Limitation of Liability</h4>
+                        <p>{{ site.get('site_name') }} provides content and services “as is” without warranties of any kind, either expressed or implied. We are not responsible for any direct, indirect, or consequential damages arising from your use of the site.</p>
+
+                        <h4>6. Third-Party Links</h4>
+                        <p>Our website may contain links to third-party websites. We do not endorse or assume responsibility for the content, privacy policies, or practices of third-party sites. Accessing these links is at your own risk.</p>
+
+                        <h4>7. Modifications</h4>
+                        <p>We reserve the right to update or modify these Terms and Conditions at any time. Your continued use of {{ site.get('site_name') }} constitutes acceptance of any changes. It is your responsibility to review these terms periodically.</p>
+
+                        <h4>8. Governing Law</h4>
+                        <p>These Terms and Conditions are governed by and construed in accordance with the laws of the jurisdiction in which {{ site.get('site_name') }} operates, without regard to conflict of law principles.</p>
+
+                        <h4>9. Contact</h4>
+                        <p>If you have any questions regarding these Terms and Conditions, please contact us via our website or email. We will respond promptly to address your concerns.</p>
+
+                        <hr>
+
+                        <h2>Privacy Policy</h2>
+                        <p>{{ site.get('site_name') }} is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data.</p>
+
+                        <h4>Information Collection</h4>
+                        <p>We may collect personal information such as your name, email address, and browsing behavior when you interact with {{ site.get('site_name') }}. This information is used to improve our services and provide a personalized experience.</p>
+
+                        <h4>Use of Information</h4>
+                        <p>Your information may be used to respond to inquiries, provide content updates, analyze website performance, and enhance user experience. We do not sell your personal information to third parties.</p>
+
+                        <h4>Cookies</h4>
+                        <p>{{ site.get('site_name') }} uses cookies and similar technologies to monitor site performance, remember preferences, and enhance your experience. You may manage cookies through your browser settings.</p>
+
+                        <h4>Data Security</h4>
+                        <p>We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, or disclosure. However, no data transmission over the Internet can be guaranteed as 100% secure.</p>
+
+                        <h4>Third-Party Services</h4>
+                        <p>We may use third-party services for analytics, hosting, and advertising. These third parties may have access to your information only to perform these tasks on our behalf and are obligated to maintain confidentiality.</p>
+
+                        <h4>Children's Privacy</h4>
+                        <p>{{ site.get('site_name') }} does not knowingly collect personal information from children under the age of 13. If you believe we have inadvertently collected such information, please contact us for deletion.</p>
+
+                        <h4>Changes to Privacy Policy</h4>
+                        <p>We reserve the right to update this Privacy Policy. Updates will be posted on this page with the revised date. Your continued use of {{ site.get('site_name') }} constitutes acceptance of any changes.</p>
+
+                        <h4>Contact Information</h4>
+                        <p>If you have questions or concerns about our Privacy Policy, please reach out to us through our contact page or via email.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+{% endblock %}

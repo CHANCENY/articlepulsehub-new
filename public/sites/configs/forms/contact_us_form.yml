@@ -1,0 +1,54 @@
+title: 'Contact Us Form'
+name: contact_us_form
+attributes:
+    id: contact_us_form
+    class: form-builder-form
+    method: POST
+    action: ''
+    enctype: multipart/form-data
+    accept-charset: UTF-8
+    is_silent: false
+fields:
+    your_full_name:
+        label: 'Full Name'
+        type: text
+        name: your_full_name
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    form_field_email_2:
+        label: 'Your Email Address'
+        type: email
+        name: form_field_email_2
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    request_subject:
+        label: 'Request Subject'
+        type: text
+        name: request_subject
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\BasicField
+        limit: 1
+    request_message:
+        label: 'Request Message'
+        type: textarea
+        name: request_message
+        id: ''
+        class: {  }
+        default_value: ''
+        required: false
+        handler: Simp\Core\components\basic_fields\TextAreaField
+        limit: 1
+        options:
+            rows: '10'
+            cols: '9'

@@ -1,0 +1,123 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "About Us",
+        h1: "more about us!"
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+{% block head %}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description"
+          content="Learn more about ArticlePulseHub, our mission, vision, and commitment to delivering high-quality, engaging articles across multiple categories.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.about.us') }}">
+    <meta property="og:image" content="{{ request.http.getSchemeAndHttpHost }}/android-chrome-512x512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description"
+          content="Learn more about ArticlePulseHub, our mission, vision, and commitment to delivering high-quality, engaging articles across multiple categories.">
+    <meta name="twitter:image" content="{{ request.http.getSchemeAndHttpHost }}/android-chrome-512x512.png">
+
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "ArticlePulseHub",
+          "url": "{{ request.http.getSchemeAndHttpHost }}",
+  "logo": "{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png",
+  "sameAs": [
+    "https://www.facebook.com/freeman.nyasulu.5",
+    "https://www.instagram.com/chancenyasulu?igsh=cmN1Znl1bjk5eTQz"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "{{ site.get('site_phone')|phone }}",
+      "contactType": "customer service",
+      "areaServed": "{{ site.get('site_country') }}",
+      "availableLanguage": ["en"]
+    }
+  ]
+}
+    </script>
+
+
+
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="about-us">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="/theme/articlepulsehub/assets/images/about-us.jpg"
+                         alt="bout {{ site.get('site_name') }} platform and team">
+                    <p>Welcome to {{ site.get('site_name') }}, your go-to platform for high-quality articles and
+                        resources across various categories including business, portfolio, restaurant, and more. Our
+                        mission is to provide insightful, reliable, and engaging content to help our readers stay
+                        informed and inspired. Explore our carefully curated articles, share your favorite reads, and
+                        join our community of passionate learners and professionals.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>Our Mission</h4>
+                    <p>At {{ site.get('site_name') }}, we aim to empower our audience by providing informative and
+                        inspiring content that covers a wide range of topics. We focus on quality, accuracy, and
+                        readability to ensure every visitor benefits from our platform.</p>
+                </div>
+                <div class="col-lg-6">
+                    <h4>Our Vision</h4>
+                    <p>We envision {{ site.get('site_name') }} as a trusted source for knowledge and ideas, connecting
+                        readers with content that sparks curiosity, promotes growth, and encourages community
+                        engagement.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <h4>Quality Content</h4>
+                    <p>Our articles are thoroughly researched and written by experts to provide you with valuable
+                        insights and practical knowledge.</p>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4>Community Engagement</h4>
+                    <p>We encourage our readers to engage with content, share opinions, and participate in discussions
+                        to foster a thriving community.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h4>Continuous Improvement</h4>
+                    <p>{{ site.get('site_name') }} is committed to evolving and improving its platform to serve readers
+                        better, offering new categories and features regularly.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="social-icons">
+                        <li><a href="https://www.facebook.com/freeman.nyasulu.5"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/chancenyasulu?igsh=cmN1Znl1bjk5eTQz"><i
+                                        class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+{% endblock %}

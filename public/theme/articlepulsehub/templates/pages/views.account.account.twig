@@ -1,0 +1,40 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "Author",
+        h1: "more about author " ~ full_name
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+    <section class="about-us">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-card">
+                        <img src="{{ profile.getImage }}" alt="Profile Image">
+                        <div class="author-profile">
+                            <h2>{{ full_name }} – Author, {{ site.get('site_name') }}</h2>
+                            {{ profile.getDescription|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+{% endblock %}

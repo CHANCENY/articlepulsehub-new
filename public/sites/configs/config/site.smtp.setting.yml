@@ -1,0 +1,6 @@
+smtp_host: smtp.hostinger.com
+smtp_username: inquiry@articlepulsehub.com
+smtp_password: '3$&r#Ci$'
+smtp_port: '465'
+smtp_secure: ssl
+submit: Submit

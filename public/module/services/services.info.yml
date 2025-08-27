@@ -1,0 +1,5 @@
+name: Service Register
+description: 'This is module for register services'
+type: module
+core_version_requirement: ^1
+enabled: true

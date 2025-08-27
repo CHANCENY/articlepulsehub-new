@@ -1,0 +1,8 @@
+.idea
+vendor
+schema/manifest.yml
+public/sites/var
+public/core
+public/ads.txt
+public/sites/configs/database/database.log
+

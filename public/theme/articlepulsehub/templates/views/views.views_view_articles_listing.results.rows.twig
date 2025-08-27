@@ -1,0 +1,164 @@
+{% extends 'articlepulsehub.view.layout.html' %}
+
+{% block banner %}
+
+    {% set banner = {
+        h4: "Recent Posts",
+        h1: "Our Recent Articles Entries"
+    } %}
+    {{ include('articlepulsehub.view.banner.html', banner, with_context: true) }}
+
+{% endblock %}
+
+{% block call_action %}
+
+    {{ include('articlepulsehub.view.call_to_action.html', {}, with_context: true) }}
+
+{% endblock %}
+
+{% block head %}
+
+        <title>Recent Blog Articles on Finance, Lifestyle, Technology & More | {{ site.get('site_name') }}</title>
+        <meta name="description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub.">
+        <meta name="keywords" content="Finance, Lifestyle, Technology, Health, Travel, Education, Blog Articles">
+
+        <!-- Canonical -->
+        <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }}{{ url('services.articles') }}" />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Recent Blog Articles on Finance, Lifestyle, Technology & More | ArticlePulseHub" />
+        <meta property="og:description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.articles') }}" />
+        <meta property="og:image" content="{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Recent Blog Articles on Finance, Lifestyle, Technology & More | ArticlePulseHub" />
+        <meta name="twitter:description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub." />
+        <meta name="twitter:image" content="{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png" />
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": [
+        {% for article in articles %}
+    {
+      "@type": "Article",
+      "position": {{ loop.index }},
+      "headline": "{{ article.title|e('js') }}",
+      "url": "{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node', { nid: article.nid }) }}",
+      "datePublished": "{{ article.getCreated|date('c') }}",
+      "dateModified": "{{ article.getUpdated|date('c') }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ article.getOwner.getProfile.getFirstName }} {{ article.getOwner.getProfile.getLastName }}"
+      },
+      "image": "{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}"
+    }{% if not loop.last %},{% endif %}
+        {% endfor %}
+        ]
+      }
+    </script>
+
+
+{% endblock %}
+
+{% block body %}
+
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="all-blog-posts">
+                        {% if articles %}
+                            <div class="row">
+
+                                {% for article in articles %}
+
+                                    <div class="col-lg-6">
+                                        <div class="blog-post">
+                                            <div class="blog-thumb">
+                                                <img src="{{ file_uri(article.get('content_articles_field_cover_image').0) }}" alt="">
+                                            </div>
+                                            <div class="down-content">
+                                                <span>{{ term(article.get('content_articles_field_category').0).label|capitalize }}</span>
+                                                <a href="{{ url('system.structure.content.node',{nid: article.nid}) }}"><h4>{{ article.title|striptags|u.truncate(28, '..', false) }}</h4></a>
+                                                <ul class="post-info">
+                                                    <li><a href="{{ url('services.account.view', {uid: article.getOwner.uid}) }}">{{ article.getOwner.getProfile.getFirstName }}</a></li>
+                                                    <li><a href="#">{{ article.getUpdated|date('F d, Y') }}</a></li>
+                                                    <li><a href="{{ url('system.structure.content.node',{nid: article.nid}) }}#comments">{{ article.get('content_articles_field_comments')|count }} Comments</a></li>
+                                                </ul>
+                                                <p>{{ article.get('content_articles_field_body').0|striptags|u.truncate(107, '...', false) }}</p>
+                                                <div class="post-options">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <ul class="post-tags">
+                                                                <li><i class="fa fa-tags"></i></li>
+                                                                {% set tags = blog_terms(article.get('content_articles_field_tags')) %}
+
+                                                                {% for tag in tags %}
+                                                                    <li><a href="{{ url('services.articles.tag', {name: tag.name}) }}">{{ tag.label }}</a>,</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                                <div class="col-lg-12">
+                                    <ul class="page-numbers">
+                                        {% if pagination.total_pages > 0 %}
+                                            {# Previous arrow #}
+                                            {% if pagination.current_page > 1 %}
+                                                <li><a href="{{ url('services.articles.pagination',{page: pagination.current_page - 1}) }}" rel="prev"><i class="fa fa-angle-double-left"></i></a></li>
+                                            {% endif %}
+
+                                            {# Determine start and end page numbers #}
+                                            {% set range = 3 %} {# number of pages to show before and after current page #}
+                                            {% set start = pagination.current_page - range %}
+                                            {% set end = pagination.current_page + range %}
+
+                                            {# Make sure start and end are within valid page numbers #}
+                                            {% if start < 1 %} {% set start = 1 %} {% endif %}
+                                            {% if end > pagination.total_pages %} {% set end = pagination.total_pages %} {% endif %}
+
+                                            {# Page numbers #}
+                                            {% for i in start..end %}
+                                                <li class="{% if i == pagination.current_page %}active{% endif %}">
+                                                    <a href="{{ url('services.articles.pagination',{page: i}) }}"
+                                                       rel="{{ i == pagination.current_page ? 'current' : 'next' }}">{{ i }}</a>
+                                                </li>
+                                            {% endfor %}
+
+                                            {# Next arrow #}
+                                            {% if pagination.current_page < pagination.total_pages %}
+                                                <li><a href="{{ url('services.articles.pagination',{page: pagination.current_page + 1}) }}" rel="next"><i class="fa fa-angle-double-right"></i></a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        {% else %}
+
+                            <div class="row">
+                                <p>No articles yet!</p>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    {{ include('articlepulsehub.view.sidebar.html', {}, with_context: true) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
