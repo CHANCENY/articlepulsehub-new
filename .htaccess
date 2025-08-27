@@ -1,5 +1,17 @@
 RewriteEngine On
 RewriteBase /
 
-# Redirect all requests to the /public directory
-RewriteRule ^(.*)$ /public/$1 [L]
+# Skip rewriting for static assets
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpe?g|gif|ico|svg|woff2?|ttf|eot)$ [NC]
+RewriteRule ^(.*)$ public/$1 [L]
+
+# If request matches a real file in /public, serve it
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+RewriteRule ^(.*)$ public/$1 [L]
+
+# If request matches a real directory in /public, serve it
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Otherwise, route everything else to /public/index.php
+RewriteRule ^(.*)$ public/index.php [L]

@@ -1,5 +1,6 @@
 .idea
-vendor
+/vendor/
+/!public/theme/articlepulsehub/vendor/
 schema/manifest.yml
 public/sites/var
 public/core
