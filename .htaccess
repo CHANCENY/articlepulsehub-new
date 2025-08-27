@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect all requests to the /web directory
+RewriteRule ^(.*)$ /web/$1 [L]
