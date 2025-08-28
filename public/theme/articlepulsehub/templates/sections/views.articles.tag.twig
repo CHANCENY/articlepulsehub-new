@@ -56,7 +56,7 @@
                                     <div class="col-lg-6">
                                         <div class="blog-post">
                                             <div class="blog-thumb">
-                                                <img src="{{ file_uri(article.get('content_articles_field_cover_image').0) }}" alt="">
+                                                <img src="{{ file_uri(article.get('content_articles_field_cover_image').0) }}" alt="{{ article.title }}">
                                             </div>
                                             <div class="down-content">
                                                 <span>{{ term.label|capitalize }}</span>

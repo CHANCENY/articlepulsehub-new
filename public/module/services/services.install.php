@@ -2,6 +2,8 @@
 
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
+use Simp\Core\lib\routes\Route;
+use Simp\Core\modules\services\Service;
 use Simp\Core\modules\structures\taxonomy\Term;
 use Simp\Public\Module\services\src\Controller\ArticlesController;
 use Simp\Public\Module\services\src\Twig\TwigHelperFunctionAction;
@@ -340,6 +342,25 @@ function services_twig_filter_install(): array
             } catch (\libphonenumber\NumberParseException $e) {
                 return preg_replace('/[^0-9]/', '', $number);
             }
+        }),
+        new TwigFilter('active_menu', function (string $route_id) {
+            $is_active = is_active_menu($route_id);
+            return $is_active ? 'active' : '';
         })
    );
+}
+
+function is_active_menu(string $route_id): bool
+{
+    $request  =  Service::serviceManager()->request;
+    $route = $request->server->get('ROUTE_ATTRIBUTES')['route'] ?? null;
+    if ($route_id === 'university.home.landing' && $route->route_id === 'home.page.route') {
+        return true;
+    }
+    if ($route instanceof Route) {
+        if ($route->route_id === $route_id) {
+            return true;
+        }
+    }
+    return false;
 }
