@@ -508,6 +508,8 @@ header .navbar {
 	padding: 25px 0px;
 	margin: 25px 0px;
 	border-top: 1px solid #eee;
+    color: black;
+    font-size: 16px;
 }
 
 .articlepulsehub-view-views-views-view-articles-listing-result .blog-posts .blog-thumb img {
