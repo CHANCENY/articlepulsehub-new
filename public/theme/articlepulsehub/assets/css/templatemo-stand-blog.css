@@ -534,13 +534,13 @@ header .navbar {
 
 .blog-posts .down-content ul.post-tags li,
 .blog-posts .down-content ul.post-share li {
-	color: #aaa;
+	color: black;
 }
 
 .blog-posts .down-content ul.post-tags li a,
 .blog-posts .down-content ul.post-share li a {
 	font-size: 14px;
-	color: #aaa;
+	color: black;
 	font-weight: 400;
 	transition: all .3s;
 }
@@ -574,7 +574,7 @@ ul.page-numbers li a {
 	text-align: center;
 	line-height: 50px;
 	font-size: 15px;
-	color: #7a7a7a;
+	color: black;
 	border: 1px solid #eee;
 	font-weight: 500;
 	transition: all 0.3s;
@@ -645,7 +645,7 @@ ul.page-numbers li a:hover {
 
 .blog-posts .comments ul li .right-content h4 span {
 	font-size: 14px;
-    color: #aaa;
+    color: black;
 	font-weight: 400;
 	letter-spacing: 0.25px;
 	margin-left: 20px;
