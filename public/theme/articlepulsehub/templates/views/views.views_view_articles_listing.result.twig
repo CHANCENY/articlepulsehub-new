@@ -90,19 +90,6 @@
                                             <li><a href="#comments">{{ article.get('content_articles_field_comments')|count }} Comments</a></li>
                                         </ul>
 
-                                        <!--In article ads-->
-                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7521938997713716"
-                                                crossorigin="anonymous"></script>
-                                        <ins class="adsbygoogle"
-                                             style="display:block; text-align:center;"
-                                             data-ad-layout="in-article"
-                                             data-ad-format="fluid"
-                                             data-ad-client="ca-pub-7521938997713716"
-                                             data-ad-slot="9867132524"></ins>
-                                        <script>
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        </script>
-
                                         <div>{{ article.get('content_articles_field_body').0|strip_empty_tags|raw }}</div>
                                         <div class="post-options">
                                             <div class="row">
