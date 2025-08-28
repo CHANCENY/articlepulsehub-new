@@ -27,7 +27,7 @@
                                 <ul class="post-info">
                                     <li><a href="{{ url('system.account.view', {uid: entity.getOwner.uid}) }}">{{ entity.getOwner.name }}</a></li>
                                     <li><a href="#">{{ entity.getUpdated|date('F d, Y') }}</a></li>
-                                    <li><a href="{{ url('system.structure.content.node',{nid: entity.nid}) }}#comments">12 Comments</a></li>
+                                    <li><a href="{{ url('system.structure.content.node',{nid: entity.nid}) }}#comments">{{ entity.get('content_articles_field_comments')|count }} Comments</a></li>
                                 </ul>
                             </div>
                         </div>
