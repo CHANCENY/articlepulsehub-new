@@ -75,6 +75,14 @@ HTML;
      */
     public function save(): string
     {
+        $node_storage = Node::nodeStorage('content_articles');
+        $node_storage->addWhere('node_data.title = :title',['title' => $this->title]);
+        $node_storage->limit(1);
+        $node_storage->execute();
+        if ($node_storage->count() > 0) {
+            return "Node already exists";
+        }
+
         $node = Node::create([
             'title' => $this->title,
             'uid' => 1,

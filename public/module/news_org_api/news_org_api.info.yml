@@ -1,5 +1,5 @@
-name: News Live
+name: 'News Live'
 description: 'This is module makes use of the news live api'
 type: module
 core_version_requirement: ^1
-enabled: false
+enabled: true

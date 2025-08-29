@@ -54,8 +54,6 @@ class NewsLiveApi
 
         $articles = json_decode(json_encode($articles), true)['articles'] ?? [];
 
-        $articles = array_slice($articles, 0, 2);
-
         $handlers = [
             'BBCNews' => BBCNews::class
         ];
