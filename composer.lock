@@ -2351,16 +2351,16 @@
         },
         {
             "name": "simp/core",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CHANCENY/core.git",
-                "reference": "362359993c080b1043becb3eae7662f58190e713"
+                "reference": "f1303c558ca29f16c7b2f5cf4441cf9fd6f2013a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CHANCENY/core/zipball/362359993c080b1043becb3eae7662f58190e713",
-                "reference": "362359993c080b1043becb3eae7662f58190e713",
+                "url": "https://api.github.com/repos/CHANCENY/core/zipball/f1303c558ca29f16c7b2f5cf4441cf9fd6f2013a",
+                "reference": "f1303c558ca29f16c7b2f5cf4441cf9fd6f2013a",
                 "shasum": ""
             },
             "require": {
@@ -2407,9 +2407,9 @@
             "description": "This is content manager cms core bundle",
             "support": {
                 "issues": "https://github.com/CHANCENY/core/issues",
-                "source": "https://github.com/CHANCENY/core/tree/v1.1.0"
+                "source": "https://github.com/CHANCENY/core/tree/v1.1.1"
             },
-            "time": "2025-08-29T10:55:00+00:00"
+            "time": "2025-08-29T13:46:56+00:00"
         },
         {
             "name": "simp/environment",
