@@ -2,6 +2,7 @@
 
 namespace Simp\Public\Module\news_org_api\src\SourceHandler;
 
+use DOMDocument;
 use Simp\Core\modules\structures\content_types\entity\Node;
 use Simp\Core\modules\structures\taxonomy\Term;
 use Simp\Public\Module\news_org_api\src\Plugin\Helper;
@@ -36,15 +37,17 @@ class BBCNews implements SourceArticleHandlerInterface
         $this->category = 1;
         // remove the content from first [ to the end of the string
         $this->content = substr($this->content, 0,strpos($this->content, '['));
+        $this->content = $this->getArticleContent($this->url, $this->content);
+
         $this->html_content = <<<HTML
-<section>
+<article>
     <p>
         {$this->content}
     </p>
     <a href="{$this->url}" target="_blank" rel="nofollow noopener noreferrer">
         Read More
     </a>
-</section>
+</article>
 HTML;
 
         $dest = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('image_');
@@ -98,4 +101,60 @@ HTML;
         }
         return '';
     }
+
+    private function getArticleContent(string $url, string $default = ''): false|string
+    {
+        // fetch with curl
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; MyBot/1.0)' // good practice
+        ]);
+        $html = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // check if 200 OK
+        if ($status !== 200 || !$html) {
+            return false;
+        }
+
+        // parse DOM
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $articles = $dom->getElementsByTagName('article');
+        if ($articles->length === 0) {
+            return $default;
+        }
+
+        $innerHTML = '';
+
+        foreach ($articles as $article) {
+            // 1. Add rel="nofollow" etc to <a>
+            foreach ($article->getElementsByTagName('a') as $a) {
+                $a->setAttribute('rel', 'nofollow noopener noreferrer');
+            }
+
+            // 2. Prevent images from being indexed
+            foreach ($article->getElementsByTagName('img') as $img) {
+                $img->setAttribute('alt', '');
+                $img->setAttribute('aria-hidden', 'true');
+                $img->setAttribute('data-noindex', 'true');
+            }
+
+            // 3. Extract processed innerHTML
+            foreach ($article->childNodes as $child) {
+                $innerHTML .= $dom->saveHTML($child);
+            }
+        }
+
+        return !empty($innerHTML) ? $innerHTML : $default;
+    }
+
 }
