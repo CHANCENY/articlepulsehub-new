@@ -37,7 +37,6 @@ class BBCNews implements SourceArticleHandlerInterface
         $this->category = 1;
         // remove the content from first [ to the end of the string
         $this->content = substr($this->content, 0,strpos($this->content, '['));
-        $this->content = $this->getArticleContent($this->url, $this->content);
 
         $this->html_content = <<<HTML
 <article>
