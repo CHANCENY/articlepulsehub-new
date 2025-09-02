@@ -27,7 +27,7 @@ function services_cron_jobs_install(): array
         'services_blogs_migration' => [
             'title' => 'Services Blogs Migration',
             'description' => 'Migrating old blogs to new server database',
-            'timing' => 'every|minute',
+            'timing' => 'every|year',
             'subscribers' => 'services_blogs_migration.migration'
         ]
     ];
