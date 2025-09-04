@@ -28,9 +28,6 @@
     <meta property="og:url" content="https://articlepulsehub.com/" />
     <meta property="og:image" content="https://articlepulsehub.com/android-chrome-512x512.png" />
 
-    <title>{{ page_title }} | {{ site.get('site_name', 'ArticlePulseHub') }}</title>
-
-
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -55,7 +52,6 @@
             }
         }
     </script>
-
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -76,6 +72,11 @@
         }
     </script>
 
+{% endblock %}
+
+{% block title %}
+
+    {{ page_title ~ " | "~ site.get('site_name', 'ArticlePulseHub') }}
 
 {% endblock %}
 

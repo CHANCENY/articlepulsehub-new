@@ -11,7 +11,7 @@
     <!-- Include the library CSS and JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
-    <title>{{ page_title }}</title>
+
     <link href="/theme/articlepulsehub/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/theme/articlepulsehub/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/theme/articlepulsehub/assets/css/templatemo-stand-blog.css">
@@ -30,6 +30,7 @@
     <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7521938997713716" crossorigin="anonymous"></script>&nbsp;<script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+    <title>{% block title %} {{ page_title }}  {% endblock %}</title>
 </head>
 <body class="{{ body_class }}">
 
