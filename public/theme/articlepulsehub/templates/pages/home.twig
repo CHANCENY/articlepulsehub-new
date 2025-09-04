@@ -1,1 +1,65 @@
 {% extends 'articlepulsehub.view.layout.html' %}
+
+{% block head %}
+
+    <meta property="og:title" content="ArticlePulseHub | Insights on Finance, Lifestyle, Technology & More" />
+    <meta property="og:description" content="Discover the latest articles on finance, lifestyle, technology, and more at ArticlePulseHub—your go-to source for fresh insights and trending topics." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://articlepulsehub.com/" />
+    <meta property="og:image" content="https://articlepulsehub.com/android-chrome-512x512.png" />
+    <link rel="canonical" href="https://articlepulsehub.com/">
+
+    <meta property="og:title" content="ArticlePulseHub | Insights on Finance, Lifestyle, Technology & More" />
+    <meta property="og:description" content="Discover the latest articles on finance, lifestyle, technology, and more at ArticlePulseHub—your go-to source for fresh insights and trending topics." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://articlepulsehub.com/" />
+    <meta property="og:image" content="https://articlepulsehub.com/android-chrome-512x512.png" />
+
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://articlepulsehub.com/",
+            "name": "ArticlePulseHub",
+            "alternateName": "Article Pulse Hub",
+            "description": "Discover the latest articles on finance, lifestyle, technology, and more at ArticlePulseHub—your go-to source for fresh insights and trending topics.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "ArticlePulseHub",
+                "url": "https://articlepulsehub.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://articlepulsehub.com/path-to-logo.png"
+                }
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://articlepulsehub.com/en/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "https://articlepulsehub.com/",
+            "name": "Home | ArticlePulseHub",
+            "isPartOf": {
+                "@type": "WebSite",
+                "url": "https://articlepulsehub.com/"
+            },
+            "about": [
+                { "@type": "Thing", "name": "Finance" },
+                { "@type": "Thing", "name": "Lifestyle" },
+                { "@type": "Thing", "name": "Technology" },
+                { "@type": "Thing", "name": "Trending Articles" }
+            ],
+            "description": "Latest articles on finance, lifestyle, technology, and more—curated for readers who want fresh insights and trending topics."
+        }
+    </script>
+
+
+{% endblock %}
