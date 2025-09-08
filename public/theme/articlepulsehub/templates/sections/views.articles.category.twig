@@ -66,7 +66,7 @@
       },
       "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
       "url": "{{ request.http.getSchemeAndHttpHost ~ url('system.structure.content.node', {nid: article.nid}) }}",
-      "description": "{{ article.get('content_articles_field_body').0|striptags|u.truncate(107, '...', false)|e('json') }}"
+      "description": "{{ article.get('content_articles_field_body').0|striptags|u.truncate(107, '...', false) }}"
     }{% if loop.index != articles|length %},{% endif %}
         {% endfor %}
         ]
