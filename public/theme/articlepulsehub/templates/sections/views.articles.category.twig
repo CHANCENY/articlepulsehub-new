@@ -58,11 +58,11 @@
         {% for article in articles %}
     {
       "@type": "BlogPosting",
-      "headline": "{{ article.title|striptags|e('json') }}",
-      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0)|e('json') }}",
+      "headline": "{{ article.title|striptags|json_encode }}",
+      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0)|json_encode }}",
       "author": {
         "@type": "Person",
-        "name": "{{ article.getOwner.getProfile.getFirstName|e('json') }}"
+        "name": "{{ article.getOwner.getProfile.getFirstName|json_encode }}"
       },
       "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
       "url": "{{ request.http.getSchemeAndHttpHost ~ url('system.structure.content.node', {nid: article.nid}) }}",
