@@ -16,7 +16,8 @@ interface SourceArticleHandlerInterface
         string $content,
         string $url,
         string $image,
-        string $published_at
+        string $published_at,
+        string $category
     );
 
     /**

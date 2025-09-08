@@ -2,32 +2,22 @@
 
 namespace Simp\Public\Module\news_org_api\src\SourceHandler;
 
-use DOMDocument;
 use Simp\Core\modules\structures\content_types\entity\Node;
 use Simp\Core\modules\structures\taxonomy\Term;
 use Simp\Public\Module\news_org_api\src\Plugin\Helper;
 
-class BBCNews implements SourceArticleHandlerInterface
+class ArticleSaver implements SourceArticleHandlerInterface
 {
     use Helper;
-    protected string $html_content;
-    protected int $file_fid;
+    private string $title;
+    private string $content;
+    private string $url;
+    private string $image;
+    private string $published_at;
+    private string $category;
+    private string $html_content;
 
-    protected int $category;
-
-    protected string $title;
-        protected string $content;
-        protected string $url;
-        protected string $image;
-        protected string $published_at;
-
-    public function __construct(
-        string $title,
-        string $content,
-        string $url,
-        string $image,
-        string $published_at
-    )
+    public function __construct(string $title, string $content, string $url, string $image, string $published_at, string $category)
     {
         $this->title = $title;
         $this->content = $content;
@@ -58,17 +48,37 @@ HTML;
             $this->processCover($dest, $filename);
         }
 
-        $term = Term::factory()->get('bbc_news');
-        if (empty($term)) {
+        $this->category = $this->getCategory($category);;
+    }
+
+    private function getCategory(string $category): int
+    {
+        // lowercase
+        $clean_name = strtolower($category);
+
+        // replace spaces and special characters with "_"
+        $clean_name = preg_replace('/[^a-z0-9]+/', '_', $clean_name);
+
+        // collapse multiple underscores into a single "_"
+        $clean_name = preg_replace('/_+/', '_', $clean_name);
+
+        // trim underscores from start and end (optional, but cleaner)
+        $clean_name = trim($clean_name, '_');
+
+        $term = Term::factory()->get($clean_name);
+
+        if (empty($term[0])) {
             $term = Term::factory()->create(
                 'categories',
-                'BBC News',
+                $category
             );
             if ($term) {
-                $term = Term::factory()->get('bbc_news');
+                $term = Term::factory()->get($clean_name);
+                return reset($term)['id'];
             }
+            return 1;
         }
-        $this->category = reset($term)['id'];
+        return reset($term)['id'];
 
     }
 
@@ -155,5 +165,4 @@ HTML;
 
         return !empty($innerHTML) ? $innerHTML : $default;
     }
-
 }

@@ -6,6 +6,7 @@ use Simp\Core\modules\files\entity\File;
 
 trait Helper
 {
+    protected int $file_fid = 0;
     protected function convertToWebP(string $sourceFile, string $destinationFile, int $quality = 80): bool
     {
         $info = getimagesize($sourceFile);

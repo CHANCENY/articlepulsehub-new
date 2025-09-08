@@ -1,0 +1,4 @@
+# Add more data source for your rest integration.
+farm_management:
+  handler: Simp\Public\Module\farm_management\src\RestSource\FarmManagement
+  title: "Fam management Api handler"

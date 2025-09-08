@@ -5,6 +5,7 @@ namespace Simp\Public\Module\news_org_api\src\Plugin;
 use Exception;
 use jcobhams\NewsApi\NewsApi;
 use jcobhams\NewsApi\NewsApiException;
+use Simp\Public\Module\news_org_api\src\SourceHandler\ArticleSaver;
 use Simp\Public\Module\news_org_api\src\SourceHandler\BBCNews;
 
 class NewsLiveApi
@@ -33,15 +34,18 @@ class NewsLiveApi
         return $this->headlines;
     }
 
-    protected function getArticles(string $source = 'bbc.com')
+    public function getArticles(string $sources)
     {
-        $articles = $this->newsLive->getEverything(domains: $source,
+        $articles = $this->newsLive->getEverything(sources: $sources,
         from: (new \DateTime('now'))->format('Y-m-d'),
         to: (new \DateTime('now'))->modify('-1 day')->format('Y-m-d'),
         sort_by: 'popularity');
         return $articles;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function cronHandler(): string
     {
         $new = new NewsLiveApi();
@@ -54,27 +58,24 @@ class NewsLiveApi
 
         $articles = json_decode(json_encode($articles), true)['articles'] ?? [];
 
-        $handlers = [
-            'BBCNews' => BBCNews::class
-        ];
-
         $articles_objects = [];
         foreach ($articles as $article) {
-            $source = str_replace(' ', '',$article['source']['name'] ?? '');
-            $handler = $handlers[$source] ?? null;
 
-            if ($handler) {
-
+            // make sure checked
+            if (!empty($article['urlToImage']) && !empty($article['title']) && !empty($article['description']) && !empty($article['url'])
+            && !empty($article['publishedAt']) && !empty($article['source']['name'])) {
                 $data = [
                     'title' => $article['title'],
                     'content' => $article['content'] ?? $article['description'],
                     'url' => $article['url'],
                     'image' => $article['urlToImage'],
                     'published_at' => $article['publishedAt'],
+                    'category' => $article['source']['name'] ,
                 ];
-
-                $articles_objects[] = (new $handler(...$data))->save();
+                $saver = new ArticleSaver(...$data);
+                $articles_objects[] = $saver->save();
             }
+
         }
 
         return implode('\n', $articles_objects);
