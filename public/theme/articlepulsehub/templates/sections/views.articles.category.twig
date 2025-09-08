@@ -39,6 +39,40 @@
     <meta name="twitter:description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub." />
     <meta name="twitter:image" content="{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png" />
 
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": "{{ site.get('site_name') }}",
+  "url": "{{ request.http.getSchemeAndHttpHost ~ url('services.articles') }}",
+  "description": "Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from {{ site.get('site_name') }}.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.get('site_name') }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png"
+    }
+  },
+  "blogPost": [
+        {% for article in articles %}
+    {
+      "@type": "BlogPosting",
+      "headline": "{{ article.title|striptags|e('json') }}",
+      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0)|e('json') }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ article.getOwner.getProfile.getFirstName|e('json') }}"
+      },
+      "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
+      "url": "{{ request.http.getSchemeAndHttpHost ~ url('system.structure.content.node', {nid: article.nid}) }}",
+      "description": "{{ article.get('content_articles_field_body').0|striptags|u.truncate(107, '...', false)|e('json') }}"
+    }{% if loop.index != articles|length %},{% endif %}
+        {% endfor %}
+        ]
+      }
+    </script>
+
 {% endblock %}
 
 {% block body %}
