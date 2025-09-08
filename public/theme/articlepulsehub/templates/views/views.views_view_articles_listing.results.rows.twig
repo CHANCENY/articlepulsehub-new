@@ -57,7 +57,7 @@
       },
       "image": "{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}"
     }
-{% if not loop.last %}, {% endif %}
+{% if loop.index != articles|length  %}, {% endif %}
         {% endfor %}
         ]
       }
