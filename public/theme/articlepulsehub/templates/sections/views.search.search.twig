@@ -40,32 +40,39 @@
             }
         }
     </script>
-
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
-          "@type": "ItemList",
-          "itemListElement": [
+          "@type": "Blog",
+          "name": "{{ site.get('site_name') }}",
+  "url": "{{ request.http.getSchemeAndHttpHost ~ url('services.articles') }}",
+  "description": "Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from {{ site.get('site_name') }}.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.get('site_name') }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png"
+    }
+  },
+  "blogPost": [
         {% for article in articles %}
     {
-      "@type": "Article",
-      "position": {{ loop.index }},
-      "headline": "{{ article.title|e('js') }}",
-      "url": "{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node', { nid: article.nid }) }}",
-      "datePublished": "{{ article.getCreated|date('c') }}",
-      "dateModified": "{{ article.getUpdated|date('c') }}",
+      "@type": "BlogPosting",
+      "headline": "{{ article.title|striptags }}",
+      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0) }}",
       "author": {
         "@type": "Person",
-        "name": "{{ article.getOwner.getProfile.getFirstName }} {{ article.getOwner.getProfile.getLastName }}"
+        "name": "{{ article.getOwner.getProfile.getFirstName }}"
       },
-      "image": "{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}"
-    }{% if not loop.last %},{% endif %}
+      "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
+      "url": "{{ request.http.getSchemeAndHttpHost ~ url('system.structure.content.node', {nid: article.nid}) }}",
+      "description": "{{ article.get('content_articles_field_body').0|striptags|u.truncate(107, '...', false) }}"
+    }{% if loop.index != articles|length %},{% endif %}
         {% endfor %}
         ]
       }
     </script>
-
-
 {% endblock %}
 
 {% block body %}
