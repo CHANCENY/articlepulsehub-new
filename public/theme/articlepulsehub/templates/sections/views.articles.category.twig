@@ -19,7 +19,7 @@
 
 {% block head %}
 
-    <title>Recent Blog Articles on Finance, Lifestyle, Technology & More | {{ site.get('site_name') }}</title>
+    <title>Recent Blog Articles on {{ term.label }} | {{ site.get('site_name') }}</title>
     <meta name="description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub.">
     <meta name="keywords" content="Finance, Lifestyle, Technology, Health, Travel, Education, Blog Articles">
 
@@ -58,11 +58,11 @@
         {% for article in articles %}
     {
       "@type": "BlogPosting",
-      "headline": "{{ article.title|striptags|json_encode }}",
-      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0)|json_encode }}",
+      "headline": "{{ article.title|striptags }}",
+      "image": "{{ file_uri(article.get('content_articles_field_cover_image').0) }}",
       "author": {
         "@type": "Person",
-        "name": "{{ article.getOwner.getProfile.getFirstName|json_encode }}"
+        "name": "{{ article.getOwner.getProfile.getFirstName }}"
       },
       "datePublished": "{{ article.getCreated|date('Y-m-d') }}",
       "url": "{{ request.http.getSchemeAndHttpHost ~ url('system.structure.content.node', {nid: article.nid}) }}",

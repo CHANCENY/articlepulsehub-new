@@ -1,7 +1,7 @@
 logger:
-    enabled: 'no'
+    enabled: 'yes'
 caching:
-    twig_caching: 'no'
+    twig_caching: 'yes'
     response_caching: ''
     database_output_caching: ''
 submit: Submit
