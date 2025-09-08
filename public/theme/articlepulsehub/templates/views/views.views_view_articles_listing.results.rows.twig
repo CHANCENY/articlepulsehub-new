@@ -56,7 +56,7 @@
         "name": "{{ article.getOwner.getProfile.getFirstName }} {{ article.getOwner.getProfile.getLastName }}"
       },
       "image": "{{ request.http.getSchemeAndHttpHost }}{{ file_uri(article.get('content_articles_field_cover_image').0) }}"
-    }{% if not loop.last %},{% endif %}
+    }{% if not loop.last %} {% endif %}
         {% endfor %}
         ]
       }
