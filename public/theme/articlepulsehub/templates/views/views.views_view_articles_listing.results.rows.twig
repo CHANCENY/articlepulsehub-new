@@ -47,7 +47,7 @@
     {
       "@type": "Article",
       "position": {{ loop.index }},
-      "headline": "{{ article.title|e('js') }}",
+      "headline": "{{ article.title }}",
       "url": "{{ request.http.getSchemeAndHttpHost }}{{ url('system.structure.content.node', { nid: article.nid }) }}",
       "datePublished": "{{ article.getCreated|date('c') }}",
       "dateModified": "{{ article.getUpdated|date('c') }}",

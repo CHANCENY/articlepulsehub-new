@@ -184,3 +184,52 @@ AddEncoding gzip svgz
   # Disable Proxy header, since it's an attack vector.
   RequestHeader unset Proxy
 </IfModule>
+
+
+# ================================
+# Security Hardening for ArticlePulseHub
+# ================================
+
+<IfModule mod_headers.c>
+
+    # --- Enforce HTTPS with HSTS (1 year, include subdomains) ---
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # --- Referrer Policy (limit referrer info leakage) ---
+    Header always set Referrer-Policy "no-referrer-when-downgrade"
+
+    # --- Prevent MIME sniffing ---
+    Header always set X-Content-Type-Options "nosniff"
+
+    # --- Clickjacking protection ---
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # --- XSS protection (legacy, modern browsers use CSP) ---
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # --- Content Security Policy (CSP) ---
+    Header always set Content-Security-Policy "
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval'
+            https://cdn.jsdelivr.net
+            https://pagead2.googlesyndication.com
+            https://*.googlesyndication.com
+            https://*.googleadservices.com
+            https://*.doubleclick.net;
+        style-src 'self' 'unsafe-inline'
+            https://fonts.googleapis.com
+            https://cdn.jsdelivr.net;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https://articlepulsehub.com https://*.googleusercontent.com https://*.ggpht.com;
+        frame-src 'self' https://*.doubleclick.net https://*.googlesyndication.com;
+        connect-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+    "
+
+</IfModule>
+
+# --- Hide Apache/PHP version info ---
+ServerSignature Off
+Header unset X-Powered-By
