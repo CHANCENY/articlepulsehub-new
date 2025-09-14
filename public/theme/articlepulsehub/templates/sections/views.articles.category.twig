@@ -24,13 +24,13 @@
     <meta name="keywords" content="Finance, Lifestyle, Technology, Health, Travel, Education, Blog Articles">
 
     <!-- Canonical -->
-    <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }}{{ url('services.articles') }}" />
+    <link rel="canonical" href="{{ request.http.getSchemeAndHttpHost }} {{ request.http.getRequestUri }}" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Recent Blog Articles on Finance, Lifestyle, Technology & More | ArticlePulseHub" />
     <meta property="og:description" content="Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from ArticlePulseHub." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }}{{ url('services.articles') }}" />
+    <meta property="og:url" content="{{ request.http.getSchemeAndHttpHost }} {{ request.http.getRequestUri }}" />
     <meta property="og:image" content="{{ request.http.getSchemeAndHttpHost }}/favicon-32x32.png" />
 
     <!-- Twitter -->
@@ -44,7 +44,7 @@
           "@context": "https://schema.org",
           "@type": "Blog",
           "name": "{{ site.get('site_name') }}",
-  "url": "{{ request.http.getSchemeAndHttpHost ~ url('services.articles') }}",
+  "url": "{{ request.http.getSchemeAndHttpHost ~ request.http.getRequestUri }}",
   "description": "Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from {{ site.get('site_name') }}.",
   "publisher": {
     "@type": "Organization",

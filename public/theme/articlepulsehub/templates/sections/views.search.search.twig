@@ -45,7 +45,7 @@
           "@context": "https://schema.org",
           "@type": "Blog",
           "name": "{{ site.get('site_name') }}",
-  "url": "{{ request.http.getSchemeAndHttpHost ~ url('services.articles') }}",
+  "url": "{{ request.http.getSchemeAndHttpHost ~ request.http.getRequestUri }}",
   "description": "Browse the latest articles on finance, lifestyle, technology, and more. Stay informed with fresh insights and trending topics from {{ site.get('site_name') }}.",
   "publisher": {
     "@type": "Organization",
